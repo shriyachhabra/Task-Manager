@@ -60,6 +60,10 @@ public class Place extends AppCompatActivity {
 
                 // Update data on card.
                 Log.d("TAG", "Place selected: " + placeId + " (" + name.toString() + ")");
+                String placeName=name.toString();
+                Intent i= new Intent(Place.this,AddItemActivity.class);
+                i.putExtra("placeP",placeName);
+                startActivity(i);
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }

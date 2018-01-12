@@ -21,7 +21,8 @@ public class AddItemActivity extends AppCompatActivity {
     ImageView back,imageMap;
     Button addTask;
     EditText  task_name, range_m;
-    String TaskName,placeName,remRange;
+    public  static String TaskName;
+    String placeName,remRange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,14 @@ public class AddItemActivity extends AppCompatActivity {
         ed=findViewById(R.id.ed);
         imageMap=findViewById(R.id.imageMap);
 
+        Intent i=getIntent();
+        Bundle bundle1=i.getExtras();
+
+        if(bundle1!=null) {
+            String p= getIntent().getStringExtra("placeP");
+            place.setText(p);
+            task_name.setText(TaskName);
+        }
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +102,8 @@ public class AddItemActivity extends AppCompatActivity {
       imageMap.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              Intent i = new Intent(AddItemActivity.this,MapsActivity.class);
+              TaskName=task_name.getText().toString();
+              Intent i = new Intent(AddItemActivity.this,Place.class);
               startActivity(i);
           }
       });
