@@ -17,20 +17,17 @@ import chhabra.shriya.mytasks.R;
  */
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.CourseViewHolder> {
-
     private Context context;
-//    private Task task;
     private ArrayList<Task> tasks;
 
     public TaskRecyclerAdapter(Context context,ArrayList<Task> task) {
         this.context=context;
         this.tasks=task;
-
     }
 
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = li.inflate(viewType, parent, false);
         return new CourseViewHolder(itemView);
     }
@@ -55,7 +52,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
 
     public class CourseViewHolder extends RecyclerView.ViewHolder {
-
         TextView TaskName,TaskPlace,TaskRadius;
 
         public CourseViewHolder(View itemView) {
@@ -63,9 +59,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             TaskName=itemView.findViewById(R.id.task_item_name);
             TaskPlace=itemView.findViewById(R.id.task_item_place);
             TaskRadius=itemView.findViewById(R.id.task_item_radius);
-
-
-
         }
     }
 }
