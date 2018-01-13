@@ -19,7 +19,7 @@ import chhabra.shriya.mytasks.R;
  * Created by LENOVO on 1/10/2018.
  */
 
-public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.CourseViewHolder> {
+public class TaskRecyclerAdapter extends EmptyRecyclerView.Adapter<TaskRecyclerAdapter.CourseViewHolder>{
     private Context context;
     private ArrayList<Task> tasks;
     private View.OnClickListener ocl;
@@ -32,7 +32,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             public void onClick(View view) {
                 final int pos = recyclerView.getChildAdapterPosition(view);
                 Intent i = new Intent(context,MapsActivity.class);
-                i.putExtra("task-name",tasks.get(pos).getTaskName());
+                i.putExtra("name",tasks.get(pos).getTaskName());
                 context.startActivity(i);
             }
         };
@@ -64,7 +64,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
          if(currtask.isDone())
              holder.TaskName.setPaintFlags(holder.TaskName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.TaskPlace.setText(currtask.getPlaceAddress());
-         holder.TaskRadius.setText("Do this");
     }
 
     @Override
@@ -74,13 +73,12 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
 
     public class CourseViewHolder extends RecyclerView.ViewHolder {
-        TextView TaskName,TaskPlace,TaskRadius;
+        TextView TaskName,TaskPlace;
 
         public CourseViewHolder(View itemView) {
             super(itemView);
             TaskName=itemView.findViewById(R.id.task_item_name);
             TaskPlace=itemView.findViewById(R.id.task_item_place);
-            TaskRadius=itemView.findViewById(R.id.task_item_radius);
         }
     }
 }

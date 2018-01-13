@@ -5,14 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="chhabra.shriya.mytasks.MainActivity"
-    tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/activity_main">
-    <android.support.v7.widget.RecyclerView
+    <chhabra.shriya.mytasks.Adapters.EmptyRecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/task_item">
-    </android.support.v7.widget.RecyclerView>
+    </chhabra.shriya.mytasks.Adapters.EmptyRecyclerView>
+    <TextView
+        android:id="@+id/empty"
+        android:text="Add tasks"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

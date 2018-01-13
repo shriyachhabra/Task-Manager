@@ -10,11 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import chhabra.shriya.mytasks.Adapters.EmptyRecyclerView;
 import chhabra.shriya.mytasks.Adapters.TaskRecyclerAdapter;
 import chhabra.shriya.mytasks.Models.Task;
 import chhabra.shriya.mytasks.db.Tables.TaskTable;
@@ -43,35 +42,17 @@ public class MainActivity extends AppCompatActivity {
         TaskDatabaseHelper myDbHelper= new TaskDatabaseHelper(this);
         readDb = myDbHelper.getReadableDatabase();
 
-        RecyclerView rv=findViewById(R.id.rv);
+        EmptyRecyclerView rv=findViewById(R.id.rv);
         tra= new TaskRecyclerAdapter(this,tasks,rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(tra);
+        rv.setEmptyView(findViewById(R.id.empty));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         tasks = TaskTable.getAllTasks(readDb);
-        Log.i("TAG", String.valueOf(tasks.size()));
         tra.setArray(tasks);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_settings:
-                break;
-        }
-
-        return true;
     }
 }

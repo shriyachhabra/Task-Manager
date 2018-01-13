@@ -78,6 +78,17 @@ public class TaskTable {
         return task;
     }
 
+    public static void flipDone(SQLiteDatabase db,String name,Boolean type){
+        ContentValues values = new ContentValues();
+        values.put(Columns.Done,type);
+        db.update(
+                Table_Name,
+                values,
+                Columns.Done +" = \""+name+"\"",
+                null
+        );
+    }
+
     public static ArrayList<Task> getAllTasks(SQLiteDatabase db)
     {
         Cursor c=db.query(
