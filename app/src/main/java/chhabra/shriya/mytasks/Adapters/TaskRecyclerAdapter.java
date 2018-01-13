@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +60,8 @@ public class TaskRecyclerAdapter extends EmptyRecyclerView.Adapter<TaskRecyclerA
     @Override
     public void onBindViewHolder(CourseViewHolder holder, int position) {
          Task currtask=tasks.get(position);
-         //String r=String.valueOf(currtask.getRadius());
          holder.TaskName.setText(currtask.getTaskName());
+         Log.d("TAG",currtask.getTaskName()+" "+currtask.isDone());
          if(currtask.isDone())
              holder.TaskName.setPaintFlags(holder.TaskName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.TaskPlace.setText(currtask.getPlaceAddress());

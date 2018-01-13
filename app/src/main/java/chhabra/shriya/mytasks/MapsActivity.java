@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,22 +51,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         place_name = findViewById(R.id.place_name);
         dist = findViewById(R.id.dist);
         notify = findViewById(R.id.notify);
+        btn = findViewById(R.id.btn);
 
         place_name.setText(task.getPlaceAddress());
         notify.setChecked(task.getNotification());
-        if(task.getNotification())
-            btn.setText("Mark as done");
-        else
+        if(task.isDone())
             btn.setText("Mark as undone");
+        else
+            btn.setText("Mark as done");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskTable.flipDone(helper.getWritableDatabase(),task.getTaskName(),!task.getNotification());
-                task.setNotification(!task.getNotification());
-                if(task.getNotification())
-                    btn.setText("Mark as done");
-                else
+                Log.d("TAG",task.getTaskName()+" "+task.isDone());
+                TaskTable.flipDone(helper.getWritableDatabase(),task.getTaskName(),!task.isDone());
+                task.setDone(!task.isDone());
+                if(task.isDone())
                     btn.setText("Mark as undone");
+                else
+                    btn.setText("Mark as done");
             }
         });
         LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
