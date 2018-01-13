@@ -69,7 +69,7 @@
             android:text="Completion date : "/>
         <TextView
             android:id="@+id/task_date"
-            android:text="05:00PM 02/10/2017"
+            android:text="05:00PM 19/01/2017"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@android:color/black"
@@ -112,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Reminder Range :"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="number"/>
         <EditText
             android:id="@+id/range_m"
             android:layout_marginStart="5dp"

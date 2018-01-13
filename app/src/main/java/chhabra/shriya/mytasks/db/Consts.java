@@ -14,7 +14,7 @@ public interface Consts {
     String CMD_CREATE_TABLE_INE = " CREATE TABLE IF NOT EXISTS ";
 
     String TYPE_INT = " INTEGER ";
-    String TYPE_DOUBLE="REAL";
+    String TYPE_DOUBLE=" REAL ";
     String TYPE_TEXT = " TEXT ";
     String TYPE_BOOLEAN = " BOOLEAN ";
     String TYPE_PK_AI = " PRIMARY KEY AUTOINCREMENT ";

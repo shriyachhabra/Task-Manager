@@ -22,7 +22,8 @@ import chhabra.shriya.mytasks.db.TaskDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<Task> tasks=new ArrayList<>();
-    RecyclerView rv;
+    SQLiteDatabase readDb;
+    TaskRecyclerAdapter tra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,45 +31,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i= new Intent(MainActivity.this,AddItemActivity.class);
                 startActivity(i);
-
             }
         });
 
         TaskDatabaseHelper myDbHelper= new TaskDatabaseHelper(this);
-        final SQLiteDatabase readDb = myDbHelper.getReadableDatabase();
-        String tname1="",pname1="",remRange="";
+        readDb = myDbHelper.getReadableDatabase();
 
-        Task t;
-        rv=findViewById(R.id.rv);
-//        Intent intent1=getIntent();
-//        Bundle bundle1=intent1.getExtras();
-
-//        if(bundle1!=null) {
-//            tname1 = intent1.getStringExtra("tname");
-//            pname1 = intent1.getStringExtra("pname");
-//            remRange =intent1.getStringExtra("remRange");
-//
-//            t = new Task(tname1, pname1,remRange+"m");
-//            tasks.add(t);
-//        }
-
-        if(tasks.size()==0) {
-            t = new Task("", "", 0, 0, 0, true);
-            tasks.add(t);
-        }else {
-            tasks = TaskTable.getAllTasks(readDb);
-        }
-
-        TaskRecyclerAdapter tra= new TaskRecyclerAdapter(this,tasks);
+        RecyclerView rv=findViewById(R.id.rv);
+        tra= new TaskRecyclerAdapter(this,tasks,rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(tra);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tasks = TaskTable.getAllTasks(readDb);
+        Log.i("TAG", String.valueOf(tasks.size()));
+        tra.setArray(tasks);
     }
 
     @Override

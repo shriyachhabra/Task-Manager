@@ -3,6 +3,7 @@ package chhabra.shriya.mytasks.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import chhabra.shriya.mytasks.db.Tables.TaskTable;
 
