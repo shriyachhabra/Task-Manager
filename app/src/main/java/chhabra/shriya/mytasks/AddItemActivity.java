@@ -2,6 +2,7 @@ package chhabra.shriya.mytasks;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -23,16 +24,21 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import chhabra.shriya.mytasks.Models.Task;
+import chhabra.shriya.mytasks.db.Tables.TaskTable;
+import chhabra.shriya.mytasks.db.TaskDatabaseHelper;
 
 public class AddItemActivity extends AppCompatActivity {
+
     TextView place_name;
     Switch swtch;
     ImageView imageMap;
     Button addTask;
     EditText  range_m;
     TextInputEditText task_name;
+    public  static Boolean ischecked;
     public  static String TaskName;
     String placeName,remRange;
+    double longitude=0,latitude=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,15 @@ public class AddItemActivity extends AppCompatActivity {
         place_name=findViewById(R.id.place);
         swtch=findViewById(R.id.swtch);
         imageMap=findViewById(R.id.imageMap);
+        TaskDatabaseHelper myDBHelper= new TaskDatabaseHelper(this);
+        final SQLiteDatabase writeDb = myDBHelper.getWritableDatabase();
+
+        if(swtch.isChecked())
+        {
+            ischecked=true;
+        }else{
+            ischecked=false;
+        }
 
         addTask.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -51,14 +66,13 @@ public class AddItemActivity extends AppCompatActivity {
               TaskName=task_name.getText().toString();
               placeName=place_name.getText().toString();
               remRange=range_m.getText().toString();
-
+              int r=Integer.valueOf(remRange);
               if(TaskName!=""&&placeName!=""&&remRange!="") {
-                  Task t= new Task(TaskName,placeName,remRange);
-                  Intent j= new Intent(AddItemActivity.this,MainActivity.class);
-                  j.putExtra("tname",TaskName);
-                  j.putExtra("pname",placeName);
-                  j.putExtra("remRange",remRange);
-                  startActivity(j);
+                  Task t= new Task(TaskName,placeName,r,longitude,latitude,ischecked);
+                  TaskTable.insertTask(t,writeDb);
+                  finish();
+
+
               }
             }
         });
@@ -80,6 +94,8 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     @Override

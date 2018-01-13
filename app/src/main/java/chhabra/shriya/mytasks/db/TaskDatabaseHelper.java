@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import chhabra.shriya.mytasks.db.Tables.TaskTable;
+
 /**
  * Created by LENOVO on 1/12/2018.
  */
@@ -19,7 +21,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        sqLiteDatabase.execSQL(TaskTable.CMD_CREATE_TABLE);
     }
 
     @Override

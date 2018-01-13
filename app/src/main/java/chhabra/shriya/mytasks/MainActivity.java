@@ -1,6 +1,7 @@
 package chhabra.shriya.mytasks;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 
 import chhabra.shriya.mytasks.Adapters.TaskRecyclerAdapter;
 import chhabra.shriya.mytasks.Models.Task;
+import chhabra.shriya.mytasks.db.Tables.TaskTable;
+import chhabra.shriya.mytasks.db.TaskDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<Task> tasks=new ArrayList<>();
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,20 +41,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        TaskDatabaseHelper myDbHelper= new TaskDatabaseHelper(this);
+        final SQLiteDatabase readDb = myDbHelper.getReadableDatabase();
         String tname1="",pname1="",remRange="";
 
         Task t;
         rv=findViewById(R.id.rv);
-        Intent intent1=getIntent();
-        Bundle bundle1=intent1.getExtras();
+//        Intent intent1=getIntent();
+//        Bundle bundle1=intent1.getExtras();
 
-        if(bundle1!=null) {
-            tname1 = intent1.getStringExtra("tname");
-            pname1 = intent1.getStringExtra("pname");
-            remRange =intent1.getStringExtra("remRange");
+//        if(bundle1!=null) {
+//            tname1 = intent1.getStringExtra("tname");
+//            pname1 = intent1.getStringExtra("pname");
+//            remRange =intent1.getStringExtra("remRange");
+//
+//            t = new Task(tname1, pname1,remRange+"m");
+//            tasks.add(t);
+//        }
 
-            t = new Task(tname1, pname1,remRange+"m");
+        if(tasks.size()==0) {
+            t = new Task("", "", 0, 0, 0, true);
             tasks.add(t);
+        }else {
+            tasks = TaskTable.getAllTasks(readDb);
         }
 
         TaskRecyclerAdapter tra= new TaskRecyclerAdapter(this,tasks);

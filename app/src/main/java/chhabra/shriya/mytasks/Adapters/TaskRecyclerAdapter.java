@@ -40,9 +40,10 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     @Override
     public void onBindViewHolder(CourseViewHolder holder, int position) {
          Task currtask=tasks.get(position);
+         String r=String.valueOf(currtask.getRadius());
          holder.TaskName.setText(currtask.getTaskName());
          holder.TaskPlace.setText(currtask.getPlaceAddress());
-         holder.TaskRadius.setText(currtask.getRadius());
+         holder.TaskRadius.setText(r);
     }
 
     @Override
