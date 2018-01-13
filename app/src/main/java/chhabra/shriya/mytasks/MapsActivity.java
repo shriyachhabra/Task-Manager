@@ -46,6 +46,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final TaskDatabaseHelper helper = new TaskDatabaseHelper(this);
 
         task = TaskTable.getTask(helper.getReadableDatabase(), name);
+        getSupportActionBar().setTitle(task.getTaskName());
         place_name = findViewById(R.id.place_name);
         dist = findViewById(R.id.dist);
         notify = findViewById(R.id.notify);
